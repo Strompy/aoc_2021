@@ -10,6 +10,22 @@ class DiveTester < Minitest::Test
     assert_equal 5, sub.commands[0][1]
   end
 
+  def test_it_can_move
+    sub = Dive.new('test_input.txt')
+    assert_equal 0, sub.x
+    assert_equal 0, sub.y
+    sub.move
+    assert_equal 15, sub.x
+    assert_equal 10, sub.y
+  end
+
+  def test_it_can_solve
+    sub = Dive.new('test_input.txt')
+    sub.move
+    require "pry"; binding.pry
+    assert_equal 150, sub.solve
+  end
+
 end
 
 # Your horizontal position and depth both start at 0. The steps above would then modify them as follows:
@@ -21,6 +37,8 @@ end
 #     down 8 adds 8 to your depth, resulting in a value of 10.
 #     forward 2 adds 2 to your horizontal position, a total of 15.
 #
-# After following these instructions, you would have a horizontal position of 15 and a depth of 10. (Multiplying these together produces 150.)
+# After following these instructions, you would have a horizontal position of 15
+# and a depth of 10. (Multiplying these together produces 150.)
 #
-# Calculate the horizontal position and depth you would have after following the planned course. What do you get if you multiply your final horizontal position by your final depth?
+# Calculate the horizontal position and depth you would have after following the planned course.
+# What do you get if you multiply your final horizontal position by your final depth?
