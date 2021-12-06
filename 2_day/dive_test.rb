@@ -22,8 +22,18 @@ class DiveTester < Minitest::Test
   def test_it_can_solve
     sub = Dive.new('test_input.txt')
     sub.move
-    require "pry"; binding.pry
     assert_equal 150, sub.solve
+  end
+
+  def test_it_can_aim_move
+    sub = Dive.new('test_input.txt')
+   assert_equal 0, sub.x
+   assert_equal 0, sub.y
+   assert_equal 0, sub.aim
+   sub.aim_move
+   assert_equal 15, sub.x
+   assert_equal 60, sub.y
+   assert_equal 10, sub.aim
   end
 
 end
