@@ -9,7 +9,12 @@ class GiantSquidTest < MiniTest::Test
 
   def test_it_can_read_lines
     assert_equal 3, @squid.boards.size
-    # assert_equal 25, @squid.called_nums.size
-    #  ^^ Get the real count for calls
+    assert_equal 27, @squid.numbers.size
+  end
+
+  def test_it_can_check_winning_board
+    board = @squid.boards[2]
+    called_nums = @squid.numbers[0..11]
+    @squid.winning_board?(board, called_nums)
   end
 end

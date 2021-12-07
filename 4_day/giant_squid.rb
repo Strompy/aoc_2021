@@ -1,21 +1,22 @@
 class GiantSquid
+  attr_reader :boards, :numbers
+
   def initialize(input)
     @boards = []
-    IO.readlines(input).each_with_index do |line, index| # can I iterate based on a split?
-      # split("\n\n")
-      # Ideally I break the initial input along double breaks
-      # First line turns in the to calls by splitting on the commas
-      @called_nums = line.split(', ') if index == 0
-      # Then split the next lines on single break to create subarrays for each board
-      rows = line.split("\n") #should create array of strings
-      board = rows.map.split(', ') #should split strings and store in subarrays
-      # subarray values should be hashes {number: status}
-      @boards << board
+    nums, *board_strings = IO.read(input).split("\n\n")
+    @numbers = nums.split(',').map(&:to_i)
+    @boards = board_strings.map do |board|
+      board.split("\n").map do |row|
+        row.split(' ').map(&:to_i)
+      end
     end
-    # Parse boards and number calls
-    # prior to first line break are the number calls
-    # after that each double break are the boards
-    # each board is 5x5, with a line break after the row
+  end
+
+  def winning_board?(board, numbers)
+    (board + board.transpose).any? do |line|
+      # line.all? { |num| num == 'x' }
+      line.all? { |num| numbers.include?(num) }
+    end
   end
 
   # Given the list of number calls, find the board that will win first
