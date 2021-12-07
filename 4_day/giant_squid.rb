@@ -14,7 +14,6 @@ class GiantSquid
 
   def winning_board?(board, numbers)
     (board + board.transpose).any? do |line|
-      # line.all? { |num| num == :x } #if I replace numbers as they are called
       line.all? { |num| numbers.include?(num) }
     end
   end
@@ -27,29 +26,32 @@ class GiantSquid
         winner = boards.find do |board|
           winning_board?(board, called_nums)
         end
-        return winner, num, called_nums unless winner.nil?
+        return winner, called_nums unless winner.nil?
       end
     end
-    # itereate through numbers
-    # break if boards.any? { |board| winning_board?(board, called_nums)}
   end
 
-  def solve
-    winner, number, called_nums = play
-    winner.flatten.reject { |num| called_nums.include?(num) }.sum * number
+  def let_the_squid_win
+    called_nums = []
+    remaining = boards
+    numbers.each do |num|
+      called_nums << num
+      if called_nums.size >= 5
+        loser = remaining
+        remaining = remaining.reject do |board|
+          winning_board?(board, called_nums)
+        end
+        return loser[0], called_nums if remaining.empty?
+      end
+    end
   end
 
-  # Given the list of number calls, find the board that will win first
-  # Winning board: sum all unmarked numbers and multiply by the winning number call
-
-  # build boards (array of arrays?) They have to know which boxes are marked
-  # Basic gameplay:
-    # iterate throught numbers until a board is_winning? == true
-    # when a number is called that value is marked as true (checked)
-    # go through each board's numbers and turn any matching number to true
-    # after marking each board, check for a winner, if there is a winner break and return board and final number
+  def solve(board, called_nums)
+    board.flatten.reject { |num| called_nums.include?(num) }.sum * called_nums.last
+  end
 end
 
 
 s = GiantSquid.new('input.txt')
-puts s.solve
+board, called = s.let_the_squid_win
+puts s.solve(board, called)

@@ -19,13 +19,20 @@ class GiantSquidTest < MiniTest::Test
   end
 
   def test_it_can_play
-    winner, number, called_nums = @squid.play
-    assert_equal 24, number
+    winner, called_nums = @squid.play
     assert_equal @squid.boards[2], winner
     assert_equal 12, called_nums.size
   end
 
   def test_it_can_solve
-    assert_equal 4512, @squid.solve
+    winner, called_nums = @squid.play
+    assert_equal 4512, @squid.solve(winner, called_nums)
+  end
+
+  def test_let_the_squid_win
+    loser, called_nums = @squid.let_the_squid_win
+    assert_equal @squid.boards[1], loser
+    assert_equal @squid.numbers[0..14], called_nums
+    assert_equal 1924, @squid.solve(loser, called_nums)
   end
 end
