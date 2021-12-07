@@ -14,9 +14,29 @@ class GiantSquid
 
   def winning_board?(board, numbers)
     (board + board.transpose).any? do |line|
-      # line.all? { |num| num == 'x' }
+      # line.all? { |num| num == :x } #if I replace numbers as they are called
       line.all? { |num| numbers.include?(num) }
     end
+  end
+
+  def play
+    called_nums = []
+    numbers.each do |num|
+      called_nums << num
+      if called_nums.size >= 5
+        winner = boards.find do |board|
+          winning_board?(board, called_nums)
+        end
+        return winner, num, called_nums unless winner.nil?
+      end
+    end
+    # itereate through numbers
+    # break if boards.any? { |board| winning_board?(board, called_nums)}
+  end
+
+  def solve
+    winner, number, called_nums = play
+    winner.flatten.reject { |num| called_nums.include?(num) }.sum * number
   end
 
   # Given the list of number calls, find the board that will win first
@@ -29,3 +49,7 @@ class GiantSquid
     # go through each board's numbers and turn any matching number to true
     # after marking each board, check for a winner, if there is a winner break and return board and final number
 end
+
+
+s = GiantSquid.new('input.txt')
+puts s.solve

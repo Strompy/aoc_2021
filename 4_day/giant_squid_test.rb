@@ -17,4 +17,15 @@ class GiantSquidTest < MiniTest::Test
     called_nums = @squid.numbers[0..11]
     @squid.winning_board?(board, called_nums)
   end
+
+  def test_it_can_play
+    winner, number, called_nums = @squid.play
+    assert_equal 24, number
+    assert_equal @squid.boards[2], winner
+    assert_equal 12, called_nums.size
+  end
+
+  def test_it_can_solve
+    assert_equal 4512, @squid.solve
+  end
 end
