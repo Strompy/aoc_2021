@@ -1,0 +1,3 @@
+class Laternfish
+
+end
