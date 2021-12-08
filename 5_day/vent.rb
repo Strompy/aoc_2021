@@ -11,10 +11,10 @@ class Vent
     points = Hash.new(0)
     coords.each do |(x1, y1), (x2, y2)|
       if x1 == x2 || y1 == y2
-        h1, h2 = [x1, x2].sort
-        v1, v2 = [y1, y2].sort
-        (h1..h2).each do |x|
-          (v1..v2).each do |y|
+        x1, x2 = [x1, x2].sort
+        y1, y2 = [y1, y2].sort
+        (x1..x2).each do |x|
+          (y1..y2).each do |y|
             points[[x, y]] += 1
           end
         end
