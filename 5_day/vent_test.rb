@@ -13,6 +13,12 @@ class VentTest < MiniTest::Test
   end
 
   def test_number_of_overlaps
-    assert_equal 5, @vent.number_of_overlaps
+    points = @vent.find_lines
+    assert_equal 5, @vent.solve(points)
+  end
+
+  def test_number_of_overlaps
+    points = @vent.find_lines(true)
+    assert_equal 12, @vent.solve(points)
   end
 end
