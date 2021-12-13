@@ -1,0 +1,3 @@
+class Whales
+
+end
