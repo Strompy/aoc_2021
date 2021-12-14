@@ -11,8 +11,8 @@ class SearchTest < Minitest::Test
     assert_equal 10, @s.inputs.size
   end
 
-  def test_it_can_determine_digits
-    assert_equal 2, @s.determine_digits(@s.inputs.first)
+  def test_it_can_count_digits
+    assert_equal 2, @s.count_digits(@s.inputs.first)
   end
 
   def test_it_can_solve_part_1

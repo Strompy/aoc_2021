@@ -17,11 +17,8 @@ class Search
     }
   end
 
-  def determine_digits(line)
-    # patterns = line.first.split(' ')
+  def count_digits(line)
     outputs = line.last.split(' ')
-    # dictionary = {}
-    # require "pry"; binding.pry
     outputs.count do |digit|
       count = digit.size
       digit = lengths[count]
@@ -34,10 +31,10 @@ class Search
 
   def solve_part_1
     inputs.sum do |line|
-      determine_digits(line)
+      count_digits(line)
     end
   end
 end
 
-@s = Search.new('input.txt')
-puts @s.solve_part_1
+# @s = Search.new('input.txt')
+# puts @s.solve_part_1
