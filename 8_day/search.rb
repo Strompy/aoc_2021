@@ -1,11 +1,10 @@
 class Search
-  attr_reader :inputs, :easy, :hard
+  attr_reader :inputs, :easy
 
   def initialize(input)
     @inputs = {}
     IO.readlines(input).map do |line|
       pattern, output = line.chomp.split(' | ')
-      # digits = pattern.split(' ')
       @inputs[pattern] = output
     end
     @easy = {
@@ -13,10 +12,6 @@ class Search
       3 => 7,
       4 => 4,
       7 => 8
-    }
-    @hard = {
-      5 => [2, 3, 5],
-      6 => [0, 6, 9]
     }
   end
 
@@ -39,12 +34,6 @@ class Search
   end
 
   def solve_part_2
-    # use dictionary to crack outputs
-    # join outputs into string and then convert to number
-    # add all outputs
-  end
-
-  def determine_digits
     inputs.sum do |patterns, outputs|
       @dictionary = {}
       digits = patterns.split(' ')
@@ -73,8 +62,6 @@ class Search
       alpha = digit.chars.sort.join
       case count
       when 5
-        # require "pry"; binding.pry if @dictionary[6].nil?
-        # next if @dictionary[6].nil?
         if  (@dictionary[7].chars - alpha.chars).empty?
           number = 3
         elsif @dictionary[6].nil?
@@ -97,6 +84,3 @@ class Search
     end
   end
 end
-
-@s = Search.new('input.txt')
-puts @s.determine_digits

@@ -20,6 +20,6 @@ class SearchTest < Minitest::Test
   end
 
   def test_it_can_solve_part_2
-    assert_equal 61229, @s.determine_digits
+    assert_equal 61229, @s.solve_part_2
   end
 end
